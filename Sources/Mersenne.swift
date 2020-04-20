@@ -52,7 +52,7 @@ final internal class MersenneTwisterGenerator: IteratorProtocol {
         var x = [seed]
         for i in 1..<n {
             let prev = x[i-1]
-            let c = discardMultiply(f, prev ^ (prev >> (w-2))) + UInt32(i)
+            let c = discardMultiply(f, prev ^ (prev >> (w-2))).addingReportingOverflow(UInt32(i)).partialValue
             x.append(c)
         }
         self.state = x
